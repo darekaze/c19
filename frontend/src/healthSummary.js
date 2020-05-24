@@ -56,7 +56,7 @@ function HealthSummary({
             No. of confirmed cases
           </Typography>
           <Typography variant="h4" component="h2">
-            {suspected}
+            {confirmed}
           </Typography>
         </CardContent>
       </Card>
