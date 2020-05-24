@@ -19,6 +19,8 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 
 import Countries from './resource/countries.json'
 
+const axios = require('axios').default;
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     marginTop: theme.spacing(1),
@@ -58,7 +60,14 @@ function HealthForm () {
     },
     onSubmit: values => {
       console.log("Submit")
-      // TODO: TO BE IMPLEMENTED
+      axios.post('http://backend-dev22222222.us-east-1.elasticbeanstalk.com/', values)
+        .then(function (response) {
+          console.log(response);
+          formik.resetForm()
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     validationSchema: ValSchema,
   })
