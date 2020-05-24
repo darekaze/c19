@@ -28,5 +28,5 @@ const healthDataInsert = async (req, res) => {
 }
 
 
-const cors = microCors({ allowMethods: ['POST'] })
+const cors = microCors({ allowMethods: ['POST', 'OPTIONS'] })
 module.exports = cors(healthDataInsert)
