@@ -16,8 +16,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import MuiAlert from '@material-ui/lab/Alert';
 
 import Countries from './resource/countries.json'
+import Snackbar from '@material-ui/core/Snackbar'
 
 const axios = require('axios').default;
 
@@ -30,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.2
   }
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 
 function HealthForm () {
   const classes = useStyles()
@@ -63,14 +70,35 @@ function HealthForm () {
       axios.post('http://backend-dev22222222.us-east-1.elasticbeanstalk.com/', values)
         .then(function (response) {
           console.log(response);
+          setAlertSuccess(true)
+          setAlertOpen(true)
           formik.resetForm()
         })
         .catch(function (error) {
           console.log(error);
+          setAlertSuccess(false)
+          setAlertOpen(true)
         });
     },
     validationSchema: ValSchema,
   })
+
+  const [alertOpen, setAlertOpen] = React.useState(false);
+  const [alertSuccess, setAlertSuccess] = React.useState(false);
+
+  const handleAlertClick = () => {
+    setAlertOpen(true);
+  };
+
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setAlertOpen(false);
+  };
+
+
   return (
   <Box my={2}>
     <Box>
@@ -178,6 +206,11 @@ function HealthForm () {
         </Button>
       </Box>
     </form>
+    <Snackbar open={alertOpen} autoHideDuration={6000} onClose={handleAlertClose}>
+      <Alert onClose={handleAlertClose} severity={alertSuccess ? 'success' : 'error'}>
+        {alertSuccess ? 'Successfully submitted!' : 'An error occurred!'}
+      </Alert>
+    </Snackbar>
   </Box>
 
 )
