@@ -1,10 +1,9 @@
 import React from 'react'
-import Countries from './countries.json'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import Typography from '@material-ui/core/Typography'
-import { Box } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
@@ -18,6 +17,7 @@ import Radio from '@material-ui/core/Radio'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 
+import Countries from './resource/countries.json'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -63,8 +63,8 @@ function HealthForm () {
     validationSchema: ValSchema,
   })
   return (
-  <Box p={2} my={2}>
-    <Box py={2}>
+  <Box my={2}>
+    <Box>
       <Typography variant='h4' align='center'>
         COVID-19 Student Health Tracking Form
       </Typography>
