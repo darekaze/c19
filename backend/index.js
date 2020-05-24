@@ -4,6 +4,7 @@ const microCors = require('micro-cors')
 const { json, send } = require('micro')
 
 const healthDataInsert = async (req, res) => {
+  if (req.method === 'OPTIONS') return res.end();
   const { studentId, studentName, country, isSuspected, isConfirmed, bodyTemperature } = await json(req)
   const conn = await mysql.createConnection(dbConfig)
 
@@ -23,10 +24,9 @@ const healthDataInsert = async (req, res) => {
       send(res, 500, error.message)
     }
   });
-
   conn.end()
 }
 
 
-const cors = microCors({ allowMethods: ['POST'] })
+const cors = microCors({ allowMethods: ['POST', 'OPTIONS'] })
 module.exports = cors(healthDataInsert)
