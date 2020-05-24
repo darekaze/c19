@@ -66,7 +66,7 @@ function HealthForm() {
     onSubmit: (values) => {
       console.log("Submit");
       axios
-        .post("https://comp4442a3-insert-api.crabass.me/", values)
+        .post("http://backend-dev22222222.us-east-1.elasticbeanstalk.com/", values)
         .then(function (response) {
           console.log(response);
           setAlertSuccess(true);
